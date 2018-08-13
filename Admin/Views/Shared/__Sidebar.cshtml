@@ -1,6 +1,4 @@
-﻿@using UserManageLibrary.Models
-
-<div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/Content/assets/img/sidebar-1.jpg">
+﻿<div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/Content/assets/img/sidebar-1.jpg">
     <!--
         Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
         Tip 2: you can also add an image using data-image tag
@@ -22,7 +20,7 @@
                 <img src="/Content/assets/img/default-avatar.png" />
             </div>
             <div class="info">
-                
+                @*
                 @if (User.Identity.IsAuthenticated)
                 {    
                     <a data-toggle="collapse" href="#ProfileComponents" class="collapsed">
@@ -32,7 +30,7 @@
                     </a>
                      
                 }
-                @*<div class="collapse hide" id="ProfileComponents">
+                <div class="collapse hide" id="ProfileComponents">
                     <ul class="nav">
                         <li>
                             <a href="#">My Profile</a>
