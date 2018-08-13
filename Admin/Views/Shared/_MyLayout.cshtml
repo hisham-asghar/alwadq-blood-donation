@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_MyMasterLayout.cshtml";
+}
+@section headscripts
+{
+@RenderSection("headscripts", false)
+}
+
+@section scripts
+{
+    @RenderSection("scripts",false)   
+
+<script>
+        $(document).ready(function () {
+            $("textarea").each(function () {
+                $(this).val($(this).val().trim());
+            });
+        });
+</script><style>
+             #datatables thead tr th,
+             #datatables thead tr td{
+                 font-size: 12px !important;
+                 font-weight: bold !important;
+             }
+         </style>
+}
+
+<div class="wrapper">
+    @Html.Partial("__Sidebar")
+    <div class="main-panel">
+        @Html.Partial("__Header")
+        <div class="content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+        @Html.Partial("__Footer")
+    </div>
+</div>

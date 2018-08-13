@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_MyMasterLayout.cshtml";
+}
+
+<body>
+<nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Admin Portal - The Maruca Group</a>
+        </div>
+    </div>
+</nav>
+<div class="wrapper wrapper-full-page">
+    <div class="full-page login-page" filter-color="black" data-image="/Content/assets/img/login.jpeg">
+        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+@section scripts
+{
+
+@RenderSection("scripts", false)
+  
+    <script type="text/javascript">
+        $().ready(function() {
+            demo.checkFullPageBackgroundImage();
+
+            setTimeout(function() {
+                // after 1000 ms we add the class animated to the login/register card
+                $('.card').removeClass('card-hidden');
+            }, 700)
+        });
+    </script>
+}

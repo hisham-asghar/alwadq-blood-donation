@@ -1,0 +1,352 @@
+﻿@using UserManageLibrary.Models
+
+<div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/Content/assets/img/sidebar-1.jpg">
+    <!--
+        Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
+        Tip 2: you can also add an image using data-image tag
+        Tip 3: you can change the color of the sidebar with data-background-color="white | black"
+    -->
+    <div class="logo">
+        <a href="/" class="simple-text">
+            The Maruca Group
+        </a>
+    </div>
+    <div class="logo logo-mini">
+        <a href="/" class="simple-text">
+            TMG
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <div class="user">
+            <div class="photo  hide">
+                <img src="/Content/assets/img/default-avatar.png" />
+            </div>
+            <div class="info">
+                
+                @if (User.Identity.IsAuthenticated)
+                {    
+                    <a data-toggle="collapse" href="#ProfileComponents" class="collapsed">
+                        @(!string.IsNullOrWhiteSpace(User.Identity.GetApplicationUser().PersonName) 
+                        ? User.Identity.GetApplicationUser().PersonName 
+                        : User.Identity.Name)
+                    </a>
+                     
+                }
+                @*<div class="collapse hide" id="ProfileComponents">
+                    <ul class="nav">
+                        <li>
+                            <a href="#">My Profile</a>
+                        </li>
+                    </ul>
+                </div>*@
+            </div>
+        </div>
+        <ul class="nav">
+
+            <li>
+                <a href="/">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+
+            <li>
+                <a data-toggle="collapse" href="#Bookingcomponents">
+                    <i class="material-icons">apps</i>
+                    <p>
+                        Bookings
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="Bookingcomponents">
+                    <ul class="nav">
+                        <li><a href="@Url.Action("Index","Booking")">View All</a></li>
+                        <li><a href="@Url.Action("Paid","Booking")">View Paid Bookings</a></li>
+                        <li><a href="@Url.Action("Unpaid","Booking")">View Unpaid Bookings</a></li>
+                        <li><a href="@Url.Action("Cancel","Booking")">View Cancelled Bookings</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a data-toggle="collapse" href="#PaymentOrderPagecomponents">
+                    <i class="material-icons">apps</i>
+                    <p>
+                        Payment Order
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="PaymentOrderPagecomponents">
+                    <ul class="nav">
+                        <li><a href="@Url.Action("Create","PaymentOrders")">Add New Order</a></li>
+
+                        <li><a href="@Url.Action("Custom","PaymentOrders")">Custom Orders</a></li>
+                        <li><a href="@Url.Action("InstantBooking","PaymentOrders" )">Instant Booking Orders</a></li>
+                        <li><a href="@Url.Action("RequestBooking","PaymentOrders" )">Requested Booking Orders</a></li>
+
+                        @*<li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.All})">View All</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.Cleared})">View Paid</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.Pending})">View UnPaid</a></li>
+
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.GeneralAll})">View All Custom Orders </a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.GeneralCleared})">View Paid Custom Orders</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.GeneralPending})">View UnPaid Custom Orders</a></li>
+
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.UnRestrictedBookingAll})">View All Unrestricted Villa Order</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.UnRestrictedBookingCleared})">View Paid Unrestricted Villa Order</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.UnRestrictedBookingPending})">View UnPaid Unrestricted Villa Order</a></li>
+
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.RestrictedBookingAll})">View All Restricted Villa Order</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.RestrictedBookingCleared})">View Paid Restricted Villa Order</a></li>
+                        <li><a href="@Url.Action("Index","PaymentOrders" , new {id = (int)Generics.Enums.PaymentOrderListingType.RestrictedBookingPending})">View UnPaid Restricted Villa Order</a></li>*@
+
+                    </ul>
+                </div>
+            </li>
+
+        <li>
+            <a data-toggle="collapse" href="#HomeOwnercomponents">
+                <i class="material-icons">people</i>
+                <p>
+                    Home Owner Links
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="HomeOwnercomponents">
+                <ul class="nav">
+                    <li><a href="@Url.Action("Index", "HomeOwner")">View All</a></li>
+                </ul>
+            </div>
+        </li>
+            <li>
+                <a data-toggle="collapse" href="#Portfoliocomponents">
+                    <i class="material-icons">apps</i>
+                    <p>
+                        Portfolios
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="Portfoliocomponents">
+                    <ul class="nav">
+                        <li>
+                            <a data-toggle="collapse" href="#Propertycomponents">
+                                <i class="fas fa-home" style="display: inline;"></i>
+                                <p style="display: inline;">
+                                    Properties
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <div class="collapse" id="Propertycomponents">
+                                <ul class="nav">
+                                    <li><a href="@Url.Action("Index","MyProperty")">View</a></li>
+                                    <li><a href="@Url.Action("DeactivedVillas","MyProperty")">View Deactive</a></li>
+                                    <li><a href="@Url.Action("AddNew","MyProperty")">Add New Property</a></li>
+                                    <li><a href="@Url.Action("Index","Amenities")">Amenities</a></li>
+                                    <li><a href="@Url.Action("Index","PropertyClaimTypes")">Bedding Details</a></li>
+                                    <li><a href="@Url.Action("City","MyProperty")">Destinations</a></li>
+                                    <li><a href="@Url.Action("Index","ArchiveScrape")">Archive Scrapper</a></li>
+                                    <li><a href="@Url.Action("Index","Scrape")">Scrapper</a></li>
+                                    @*<li><a href="/MyProperty/Edit">Edit properties</a></li>
+                    <li><a href="/MyProperty/AvailabilityAndPrices">Calendar &amp; Pricing</a></li>
+                    <li><a href="/MyProperty/MultiCalendar">MultiCalendar</a></li>*@
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a data-toggle="collapse" href="#Carscomponents">
+                                <i class="fas fa-car"></i>
+                                <p style="display: inline;">
+                                    Cars
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <div class="collapse" id="Carscomponents">
+                                <ul class="nav">
+                                    <li><a href="@Url.Action("Index","Cars")">View All</a></li>
+                                    <li><a href="@Url.Action("AddNew","Cars")">Add New</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a data-toggle="collapse" href="#Yachtscomponents">
+                                <i class="fas fa-ship"></i>
+                                <p style="display: inline;">
+                                    Yachts
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <div class="collapse" id="Yachtscomponents">
+                                <ul class="nav">
+                                    <li><a href="@Url.Action("Index","Yachts")">View All</a></li>
+                                    <li><a href="@Url.Action("AddNew","Yachts")">Add New</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#UserAdmincomponents">
+                    <i class="material-icons">apps</i>
+                    <p>
+                        User Admin
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="UserAdmincomponents">
+                    <ul class="nav">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Website Users", "Index", "UsersAdmin")</li>
+                        }
+                        <li>@Html.ActionLink("User Inquiries", "Index", "UsersInfo")</li>
+                    </ul>
+                </div>
+            </li>
+            @*@if (User.IsInRole("Admin"))
+            {
+                
+                
+                <li>
+                    <a data-toggle="collapse" href="#RolesAdmincomponents">
+                        <i class="material-icons">apps</i>
+                        <p>
+                            Roles Admin
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="RolesAdmincomponents">
+                        <ul class="nav">
+                            <li>@Html.ActionLink("View", "Index", "RolesAdmin")</li>
+                        </ul>
+                    </div>
+                </li>
+            }*@
+        
+            
+        <li>
+            <a data-toggle="collapse" href="#MainPagecomponents">
+                <i class="material-icons">apps</i>
+                <p>
+                    Website Settings
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="MainPagecomponents">
+                <ul class="nav">
+                    <li><a href="@Url.Action("Banners","Home")">Banners</a></li>
+                    <li><a href="@Url.Action("Contact","Home")">Contact Page</a></li>
+                    <li><a href="@Url.Action("AboutUs","Home")">About Us Page</a></li>
+                    <li>
+                        <a data-toggle="collapse" href="#LandingPagecomponents">
+                            <p>
+                                Landing Page
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="LandingPagecomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Services","Home")">Services Panel</a></li>
+                                <li><a href="@Url.Action("BestOptions","Home")">Best Options Panel</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#Linkscomponents">
+                            <p>
+                                Links
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="Linkscomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Index","Link")">View All</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#FAQscomponents">
+                            <p>
+                                FAQs
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="FAQscomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Index","FAQ")">View All</a></li>
+                                <li><a href="@Url.Action("Update","FAQ")">Add New</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#Testimonalscomponents">
+                            <p>
+                                Testimonals
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="Testimonalscomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Index","Testimonals")">View All</a></li>
+                                <li><a href="@Url.Action("Update","Testimonals")">Add New</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#Filterscomponents">
+                            <p>
+                                Filters
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="Filterscomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Index","Filters")">View All</a></li>
+                                <li><a href="@Url.Action("PropertyFilters","Filters")">Property Filters</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#Servicescomponents">
+                            <p>
+                                Services
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="Servicescomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Index","Services")">View All</a></li>
+                                <li><a href="@Url.Action("Update","Services")">Add New</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#Magzinescomponents">
+                            <p>
+                                Magzines
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="Magzinescomponents">
+                            <ul class="nav">
+                                <li><a href="@Url.Action("Index","Magzines")">View All</a></li>
+                                <li><a href="@Url.Action("Add","Magzines")">Add New</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+            
+            
+        </ul>
+    </div>
+</div>
