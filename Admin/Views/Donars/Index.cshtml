@@ -60,12 +60,10 @@
             @item.Gender.Name
         </td>
         <td>
-            @item.StreetAddress, @item.ColonyArea.Name 
+            @item.ColonyArea.Name 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DonarId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DonarId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DonarId })
+            @Html.ActionLink("Details", "Details", new { id=item.DonarId }) 
         </td>
     </tr>
 }
