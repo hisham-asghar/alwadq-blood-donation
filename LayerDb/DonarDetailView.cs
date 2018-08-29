@@ -19,13 +19,11 @@ namespace LayerDb
         [StringLength(256)]
         public string FirstName { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         [StringLength(256)]
         public string LastName { get; set; }
 
         [Key]
-        [Column(Order = 3)]
+        [Column(Order = 2)]
         [StringLength(50)]
         public string MobilePhone { get; set; }
 
@@ -38,24 +36,24 @@ namespace LayerDb
         public int? GenderId { get; set; }
 
         [Key]
-        [Column(Order = 4)]
+        [Column(Order = 3)]
         [StringLength(50)]
         public string GenderName { get; set; }
 
         public int? MartialStatusId { get; set; }
 
         [Key]
-        [Column(Order = 5)]
+        [Column(Order = 4)]
         [StringLength(50)]
         public string MartialStatusName { get; set; }
 
         [Key]
-        [Column(Order = 6)]
+        [Column(Order = 5)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int BloodGroupId { get; set; }
 
         [Key]
-        [Column(Order = 7)]
+        [Column(Order = 6)]
         [StringLength(5)]
         public string BloodGroupName { get; set; }
 
@@ -66,7 +64,7 @@ namespace LayerDb
         public double? Latitude { get; set; }
 
         [Key]
-        [Column(Order = 8)]
+        [Column(Order = 7)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long ColonyAreaId { get; set; }
 
@@ -77,11 +75,19 @@ namespace LayerDb
         public string StreetAddress { get; set; }
 
         [Key]
-        [Column(Order = 9)]
+        [Column(Order = 8)]
         public DateTime OnCreated { get; set; }
 
         [Key]
-        [Column(Order = 10)]
+        [Column(Order = 9)]
         public DateTime OnModified { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? Age { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? LastBleddDate { get; set; }
     }
 }

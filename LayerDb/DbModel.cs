@@ -22,11 +22,11 @@ namespace LayerDb
         public virtual DbSet<Gender> Genders { get; set; }
         public virtual DbSet<MartialStatu> MartialStatus { get; set; }
         public virtual DbSet<Relationship> Relationships { get; set; }
-        public virtual DbSet<DonarRelationship> DonarRelationships { get; set; }
         public virtual DbSet<CityAreaView> CityAreaViews { get; set; }
         public virtual DbSet<CityView> CityViews { get; set; }
         public virtual DbSet<ColonyAreaView> ColonyAreaViews { get; set; }
         public virtual DbSet<DonarDetailView> DonarDetailViews { get; set; }
+        public virtual DbSet<DonarRelationshipView> DonarRelationshipViews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -60,26 +60,14 @@ namespace LayerDb
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Donar>()
-                .HasMany(e => e.DonarRelationships)
-                .WithRequired(e => e.Donar)
-                .HasForeignKey(e => e.PersonId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Donar>()
-                .HasMany(e => e.DonarRelationships1)
-                .WithRequired(e => e.Donar1)
-                .HasForeignKey(e => e.RelatedPersonId)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.Donars1)
+                .WithMany(e => e.Donars)
+                .Map(m => m.ToTable("DonarRelationships").MapLeftKey("PersonId").MapRightKey("RelatedPersonId"));
 
             modelBuilder.Entity<MartialStatu>()
                 .HasMany(e => e.Donars)
                 .WithOptional(e => e.MartialStatu)
                 .HasForeignKey(e => e.MartialStatusId);
-
-            modelBuilder.Entity<Relationship>()
-                .HasMany(e => e.DonarRelationships)
-                .WithRequired(e => e.Relationship)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CityAreaView>()
                 .Property(e => e.CityAreaName)
@@ -88,6 +76,10 @@ namespace LayerDb
             modelBuilder.Entity<ColonyAreaView>()
                 .Property(e => e.CityAreaName)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<DonarDetailView>()
+                .Property(e => e.Age)
+                .HasPrecision(18, 1);
         }
     }
 }

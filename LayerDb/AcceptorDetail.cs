@@ -11,9 +11,11 @@ namespace LayerDb
         [Key]
         public long AcceptorId { get; set; }
 
-        public long? AcceptedFrom { get; set; }
+        public long? DonatedTo { get; set; }
 
         public long? DonatedBy { get; set; }
+
+        public DateTime BleedDate { get; set; }
 
         public DateTime OnCreated { get; set; }
 

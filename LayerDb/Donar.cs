@@ -11,8 +11,8 @@ namespace LayerDb
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Donar()
         {
-            DonarRelationships = new HashSet<DonarRelationship>();
-            DonarRelationships1 = new HashSet<DonarRelationship>();
+            Donars1 = new HashSet<Donar>();
+            Donars = new HashSet<Donar>();
         }
 
         public long DonarId { get; set; }
@@ -21,7 +21,6 @@ namespace LayerDb
         [StringLength(256)]
         public string FirstName { get; set; }
 
-        [Required]
         [StringLength(256)]
         public string LastName { get; set; }
 
@@ -56,18 +55,20 @@ namespace LayerDb
 
         public DateTime OnModified { get; set; }
 
+        public DateTime? DateOfBirth { get; set; }
+
         public virtual BloodGroup BloodGroup { get; set; }
 
         public virtual ColonyArea ColonyArea { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonarRelationship> DonarRelationships { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonarRelationship> DonarRelationships1 { get; set; }
-
         public virtual Gender Gender { get; set; }
 
         public virtual MartialStatu MartialStatu { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Donar> Donars1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Donar> Donars { get; set; }
     }
 }

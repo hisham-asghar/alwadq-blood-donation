@@ -6,7 +6,8 @@ namespace LayerDb
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class DonarRelationship
+    [Table("DonarRelationshipView")]
+    public partial class DonarRelationshipView
     {
         [Key]
         [Column(Order = 0)]
@@ -15,18 +16,17 @@ namespace LayerDb
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long RelatedPersonId { get; set; }
+        [StringLength(513)]
+        public string PersonName { get; set; }
 
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int RelationshipId { get; set; }
+        public long RelatedPersonId { get; set; }
 
-        public virtual Donar Donar { get; set; }
-
-        public virtual Donar Donar1 { get; set; }
-
-        public virtual Relationship Relationship { get; set; }
+        [Key]
+        [Column(Order = 3)]
+        [StringLength(513)]
+        public string RelatedPersonName { get; set; }
     }
 }
