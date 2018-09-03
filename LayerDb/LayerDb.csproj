@@ -63,7 +63,7 @@
     <Compile Include="DbModel.cs" />
     <Compile Include="Donar.cs" />
     <Compile Include="DonarDetailView.cs" />
-    <Compile Include="DonarRelationship.cs" />
+    <Compile Include="DonarRelationshipView.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="MartialStatu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
