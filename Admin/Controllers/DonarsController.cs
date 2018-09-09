@@ -10,6 +10,7 @@ using LayerDb;
 
 namespace Admin.Controllers
 {
+    [Authorize]
     public class DonarsController : Controller
     {
         private DbModel db = new DbModel();
@@ -33,12 +34,20 @@ namespace Admin.Controllers
             {
                 return HttpNotFound();
             }
+
+            //var donars = db.Donars.Include(d => d.BloodGroup).Include(d => d.ColonyArea).Include(d => d.Gender).Include(d => d.MartialStatu);
+            //var relationships = db.DonarRelationshipViews.
+
+
             return View(donar);
         }
 
         // GET: Donars/Create
         public ActionResult Create()
         {
+            var users = db.DonarDetailViews.ToDictionary(d => d.DonarId, v => v.FirstName + " " + v.LastName);
+            users[0] = "None";
+            ViewBag.ReferedBy = new SelectList(users.OrderBy(k => k.Key).Select(k => new {Id = k.Key, Name = k.Value}), "Id", "Name");
             ViewBag.BloodGroupId = new SelectList(db.BloodGroups, "Id", "Name");
             ViewBag.ColonyAreaId = new SelectList(db.ColonyAreaViews.Select(c => new {
                 Id = c.ColonyAreaId,
@@ -54,10 +63,21 @@ namespace Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonarId,FirstName,LastName,MobilePhone,AlternateMobilePhone,EmailAddress,GenderId,MartialStatusId,BloodGroupId,Weight,Longitude,Latitude,StreetAddress,ColonyAreaId")] Donar donar)
+        public ActionResult Create([Bind(Include = "DonarId,FirstName,LastName,MobilePhone,AlternateMobilePhone,EmailAddress,GenderId,MartialStatusId,BloodGroupId,Weight,StreetAddress,ColonyAreaId")] Donar donar,int age = 0,int ReferedBy = 0)
         {
             if (ModelState.IsValid)
             {
+                if (donar.DateOfBirth == null && age > 0)
+                {
+                    donar.DateOfBirth = DateTime.Now.AddYears(-1 * age);
+                }
+
+                if (ReferedBy > 0)
+                {
+                    var newrefere = db.Donars.FirstOrDefault();
+                    donar.Donars = new List<Donar>() { newrefere };
+                }
+                 //   donar.Donars.Add(db.Donars.Find(ReferedBy));
                 donar.OnCreated = DateTime.Now;
                 donar.OnModified = DateTime.Now;
                 db.Donars.Add(donar);
@@ -65,6 +85,10 @@ namespace Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+
+            var users = db.DonarDetailViews.ToDictionary(d => d.DonarId, v => v.FirstName + " " + v.LastName);
+            users[0] = "None";
+            ViewBag.ReferedBy = new SelectList(users.OrderBy(k => k.Key).Select(k => new { Id = k.Key, Name = k.Value }), "Id", "Name");
             ViewBag.BloodGroupId = new SelectList(db.BloodGroups, "Id", "Name", donar.BloodGroupId);
             ViewBag.ColonyAreaId = new SelectList(db.ColonyAreaViews.Select(c => new {
                 Id = c.ColonyAreaId,
@@ -87,6 +111,9 @@ namespace Admin.Controllers
             {
                 return HttpNotFound();
             }
+            var users = db.DonarDetailViews.ToDictionary(d => d.DonarId, v => v.FirstName + " " + v.LastName);
+            users[0] = "None";
+            ViewBag.ReferedBy = new SelectList(users.OrderBy(k => k.Key).Select(k => new { Id = k.Key, Name = k.Value }), "Id", "Name");
             ViewBag.BloodGroupId = new SelectList(db.BloodGroups, "Id", "Name", donar.BloodGroupId);
             ViewBag.ColonyAreaId = new SelectList(db.ColonyAreaViews.Select(c => new {
                 Id = c.ColonyAreaId,
@@ -102,16 +129,75 @@ namespace Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonarId,FirstName,LastName,MobilePhone,AlternateMobilePhone,EmailAddress,GenderId,MartialStatusId,BloodGroupId,Weight,Longitude,Latitude,StreetAddress,ColonyAreaId")] Donar donar)
+        public ActionResult Edit([Bind(Include = "DonarId,FirstName,LastName,MobilePhone,AlternateMobilePhone,EmailAddress,GenderId,MartialStatusId,BloodGroupId,Weight,StreetAddress,ColonyAreaId")] Donar donar,int age = 0, int ReferedBy = 0)
         {
             if (ModelState.IsValid)
             {
+                //var oldDonar = db.Donars.FirstOrDefault(d => d.DonarId == donar.DonarId);
+                //if (oldDonar == null) return RedirectToAction("Index");
+                if (donar.DateOfBirth == null && age > 0)
+                {
+                    donar.DateOfBirth = DateTime.Now.AddYears(-1 * age);
+                }
+
+                //oldDonar.DateOfBirth = donar.DateOfBirth;
+                //oldDonar.FirstName = donar.FirstName;
+                //oldDonar.LastName = donar.LastName;
+                //oldDonar.AlternateMobilePhone = donar.AlternateMobilePhone;
+                //oldDonar.BloodGroupId = donar.BloodGroupId;
+                //oldDonar.ColonyAreaId = donar.ColonyAreaId;
+                //oldDonar.EmailAddress = donar.EmailAddress;
+                //oldDonar.GenderId = donar.GenderId;
+                //oldDonar.Latitude = donar.Latitude;
+                //oldDonar.Longitude = donar.Longitude;
+                //oldDonar.MartialStatusId = donar.MartialStatusId;
+                //oldDonar.MobilePhone = oldDonar.MobilePhone;
+                //oldDonar.OnModified = DateTime.Now;
+                //oldDonar.StreetAddress = donar.StreetAddress;
+                //oldDonar.Weight = donar.Weight;
+
+                //if (ReferedBy > 0)
+                //{
+
+                //}
+
+
+
+
+
+
+
+                if (ReferedBy > 0)
+                {
+                    var refere = donar.Donars.FirstOrDefault();
+                    var newrefere = db.Donars.FirstOrDefault(d => d.DonarId == ReferedBy);
+                    if (refere != null)
+                    {
+                        donar.Donars.Remove(refere);
+                        donar.Donars.Add(newrefere);
+                    }
+                    else
+                    {
+                        donar.Donars = new List<Donar>() {newrefere};
+                    }
+                }
+
+                //donar.OnModified = DateTime.Now;
+                ////db.Entry(donar).Property(p => p.OnCreated).IsModified = false;
+                //if (oldDonar != null) donar.OnCreated = oldDonar.OnCreated;
+                //else
+                donar.OnCreated = DateTime.Now;
                 donar.OnModified = DateTime.Now;
-                db.Entry(donar).Property(p => p.OnCreated).IsModified = false;
                 db.Entry(donar).State = EntityState.Modified;
-                db.SaveChanges();
+
+                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.ReferedById = donar.Donars.Select(d => d.DonarId).FirstOrDefault();
+            var users = db.DonarDetailViews.ToDictionary(d => d.DonarId, v => v.FirstName + " " + v.LastName);
+            users[0] = "None";
+            ViewBag.ReferedBy = new SelectList(users.OrderBy(k => k.Key).Select(k => new { Id = k.Key, Name = k.Value }), "Id", "Name");
             ViewBag.BloodGroupId = new SelectList(db.BloodGroups, "Id", "Name", donar.BloodGroupId);
             ViewBag.ColonyAreaId = new SelectList(db.ColonyAreaViews.Select(c => new {
                 Id = c.ColonyAreaId,

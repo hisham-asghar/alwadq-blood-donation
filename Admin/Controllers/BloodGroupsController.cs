@@ -10,6 +10,7 @@ using LayerDb;
 
 namespace Admin.Controllers
 {
+    [Authorize]
     public class BloodGroupsController : Controller
     {
         private DbModel db = new DbModel();

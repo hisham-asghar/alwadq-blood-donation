@@ -4,135 +4,171 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Donar</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BloodGroup.Name)
-        </dt>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="purple">
+            <i class="material-icons">assignment</i>
+        </div>
+        <div class="card-content">
 
-        <dd>
-            @Html.DisplayFor(model => model.BloodGroup.Name)
-        </dd>
+            <div>
+                <h4>Donar</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Name
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ColonyArea.Name)
-        </dt>
+                    <dd>
+                        @(Model.FirstName + " " + Model.LastName)
+                    </dd>
+                    @if (Model.DateOfBirth != null)
+                    {
 
-        <dd>
-            @Html.DisplayFor(model => model.ColonyArea.Name)
-        </dd>
+                        <dt>
+                            Age
+                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender.Name)
-        </dt>
+                        <dd>
+                            @{
+                                var today = DateTime.Today;
+                                // Calculate the age.
+                                var age = today.Year - ((DateTime)Model.DateOfBirth).Year;
+                                // Go back to the year the person was born in case of a leap year
+                                if (((DateTime)Model.DateOfBirth) > today.AddYears(-age))
+                                {
+                                    age--;
+                                }
+                            }
+                            @age years old
+                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender.Name)
-        </dd>
+                        <dt>
+                            Date Of Birth
+                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MartialStatu.Name)
-        </dt>
+                        <dd>
+                            @(((DateTime)Model.DateOfBirth).ToString("dd/MM/yyyy"))
+                        </dd>
+                   }
 
-        <dd>
-            @Html.DisplayFor(model => model.MartialStatu.Name)
-        </dd>
+                    <dt>
+                        Blood Group
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BloodGroup.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                    <dt>
+                        Gender
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                    <dt>
+                        Martial Status
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MobilePhone)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.MartialStatu.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MobilePhone)
-        </dd>
+                    <dt>
+                        Mobile Phone
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AlternateMobilePhone)
-        </dt>
+                    <dd>
+                        <a href="tel:@Model.MobilePhone">@Model.MobilePhone</a><br/>
+                        <a href="tel:@Model.AlternateMobilePhone">@Model.AlternateMobilePhone</a>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AlternateMobilePhone)
-        </dd>
+                    <dt>
+                        EMail Address
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
+                    <dd>
+                        <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Weight)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Weight)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Weight)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
+                    <dt>
+                        Street Address
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.StreetAddress), @Html.DisplayFor(model => model.ColonyArea.Name), @Model.ColonyArea.CityArea.Name
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
+                    <dt>
+                        Added On
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
+                    <dd>
+                        @Model.OnCreated.ToString("dd/MM/yyyy")
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
+                    <dt>
+                        Last Modified On
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StreetAddress)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OnModified)
+                    </dd>
+                    @if (Model.Donars != null && Model.Donars.Count > 0)
+                    {
 
-        <dd>
-            @Html.DisplayFor(model => model.StreetAddress)
-        </dd>
+                        <dt>
+                            Refered By
+                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OnCreated)
-        </dt>
+                        <dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.OnCreated)
-        </dd>
+                            @foreach (var u in Model.Donars)
+                            {
+                                <a href="@Url.Action("Details", "Donars", new {id = u.DonarId})">
+                                    @u.FirstName @u.LastName
+                                </a>
+                            }
+                        </dd>
+                    }
+                    @if (Model.Donars1 != null && Model.Donars1.Count > 0)
+                    {
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OnModified)
-        </dt>
+                        <dt>
+                            Refers
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OnModified)
-        </dd>
+                        <dd>
 
-    </dl>
+                            @foreach (var u in Model.Donars1)
+                            {
+                                <a href="@Url.Action("Details", "Donars", new {id = u.DonarId})">
+                                    @u.FirstName @u.LastName
+                                </a><br/>
+                            }
+                        </dd>
+                    }
+
+                </dl>
+            </div>
+           
+
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.DonarId }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DonarId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

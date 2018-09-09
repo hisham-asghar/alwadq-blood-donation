@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Admin.Models;
+using Generics.Models;
 
 namespace Admin
 {
@@ -18,7 +19,11 @@ namespace Admin
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
+            Generics.Helpers.NotifyHelper.Notify(new NotifyModel()
+            {
+                Body = message.Body,
+                Subject = message.Subject
+            });
             return Task.FromResult(0);
         }
     }
