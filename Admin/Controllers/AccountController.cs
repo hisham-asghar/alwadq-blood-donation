@@ -72,7 +72,18 @@ namespace Admin.Controllers
             {
                 return View(model);
             }
-
+            var user = UserManager.FindByName(model.Email);
+            var emailConfirmation = false;
+            if (user != null)
+            {
+                if (user.EmailConfirmed)
+                    emailConfirmation = true;
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+                }
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -155,13 +166,13 @@ namespace Admin.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     //Send an email with this link
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", $"Email: {model.Email}, Password: {model.Password} Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", $"Email: {model.Email}, Password: {model.Password} Please confirm your account by clicking <a href=\" " + callbackUrl + " \">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }

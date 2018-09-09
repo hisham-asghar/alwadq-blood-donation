@@ -188,6 +188,7 @@
     <Compile Include="App_Start\RedirectToHttpsAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AcceptorDetailsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BloodGroupsController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -930,6 +931,13 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\AcceptorDetails\Create.cshtml" />
+    <Content Include="Views\AcceptorDetails\Delete.cshtml" />
+    <Content Include="Views\AcceptorDetails\Details.cshtml" />
+    <Content Include="Views\AcceptorDetails\Edit.cshtml" />
+    <Content Include="Views\AcceptorDetails\Index.cshtml" />
+    <Content Include="Views\AcceptorDetails\AcceptedBy.cshtml" />
+    <Content Include="Views\AcceptorDetails\DonatedBy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

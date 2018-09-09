@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptorDetail.cs" />
+    <Compile Include="AspNetRole.cs" />
+    <Compile Include="AspNetUser.cs" />
+    <Compile Include="AspNetUserClaim.cs" />
+    <Compile Include="AspNetUserLogin.cs" />
     <Compile Include="BloodGroup.cs" />
     <Compile Include="City.cs" />
     <Compile Include="CityArea.cs" />
@@ -60,6 +64,7 @@
     <Compile Include="ColonyArea.cs" />
     <Compile Include="ColonyAreaView.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="C__MigrationHistory.cs" />
     <Compile Include="DbModel.cs" />
     <Compile Include="Donar.cs" />
     <Compile Include="DonarDetailView.cs" />

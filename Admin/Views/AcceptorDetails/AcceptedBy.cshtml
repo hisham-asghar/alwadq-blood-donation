@@ -1,0 +1,28 @@
+﻿@model IEnumerable<LayerDb.AcceptorDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Donated By
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BleedDate)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Action("Details","Donars", new {id = item.Donar1.DonarId})">@item.Donar1.FirstName @item.Donar1.LastName</a>
+        </td>
+        <td>
+            @item.BleedDate.ToString("dd/MM/yyyy")
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,58 @@
+﻿@model LayerDb.AcceptorDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_CardLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AcceptorDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Donated By
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Donar.FirstName)
+        </dd>
+
+        <dt>
+            Accepted By
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Donar1.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BleedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BleedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnModified)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AcceptorId }) 
+</p>

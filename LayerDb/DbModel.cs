@@ -12,7 +12,12 @@ namespace LayerDb
         {
         }
 
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AcceptorDetail> AcceptorDetails { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<BloodGroup> BloodGroups { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<CityArea> CityAreas { get; set; }
@@ -30,6 +35,21 @@ namespace LayerDb
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AspNetRole>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetRoles)
+                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+
+            modelBuilder.Entity<AspNetUser>()
+                .HasMany(e => e.AspNetUserClaims)
+                .WithRequired(e => e.AspNetUser)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUser>()
+                .HasMany(e => e.AspNetUserLogins)
+                .WithRequired(e => e.AspNetUser)
+                .HasForeignKey(e => e.UserId);
+
             modelBuilder.Entity<BloodGroup>()
                 .HasMany(e => e.Donars)
                 .WithRequired(e => e.BloodGroup)
@@ -57,6 +77,18 @@ namespace LayerDb
             modelBuilder.Entity<Country>()
                 .HasMany(e => e.Cities)
                 .WithRequired(e => e.Country)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Donar>()
+                .HasMany(e => e.AcceptorDetails)
+                .WithRequired(e => e.Donar)
+                .HasForeignKey(e => e.DonatedBy)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Donar>()
+                .HasMany(e => e.AcceptorDetails1)
+                .WithRequired(e => e.Donar1)
+                .HasForeignKey(e => e.DonatedTo)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Donar>()

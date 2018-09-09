@@ -11,6 +11,8 @@ namespace LayerDb
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Donar()
         {
+            AcceptorDetails = new HashSet<AcceptorDetail>();
+            AcceptorDetails1 = new HashSet<AcceptorDetail>();
             Donars1 = new HashSet<Donar>();
             Donars = new HashSet<Donar>();
         }
@@ -56,6 +58,12 @@ namespace LayerDb
         public DateTime OnModified { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AcceptorDetail> AcceptorDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AcceptorDetail> AcceptorDetails1 { get; set; }
 
         public virtual BloodGroup BloodGroup { get; set; }
 

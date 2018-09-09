@@ -44,7 +44,7 @@
     <tr>
 	
         <td>
-            @item.FirstName @item.LastName
+            <a href="@Url.Action("Details","Donars", new {Id = item.DonarId})">@item.FirstName @item.LastName</a>
         </td>
         <td>
             <a href="tel:@item.MobilePhone">@item.MobilePhone</a><br/>

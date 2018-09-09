@@ -5,7 +5,7 @@
 }
 
 
-<div class="col-md-12">
+<div class="col-md-8">
     <div class="card">
         <div class="card-header card-header-icon" data-background-color="purple">
             <i class="material-icons">assignment</i>
@@ -51,7 +51,7 @@
                         <dd>
                             @(((DateTime)Model.DateOfBirth).ToString("dd/MM/yyyy"))
                         </dd>
-                   }
+                    }
 
                     <dt>
                         Blood Group
@@ -168,6 +168,39 @@
                 @Html.ActionLink("Edit", "Edit", new { id = Model.DonarId }) |
                 @Html.ActionLink("Back to List", "Index")
             </p>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="purple">
+            <i class="material-icons">assignment</i>
+        </div>
+        <div class="card-content">
+            @{
+                var donateds = Model.AcceptorDetails.OrderByDescending(d => d.BleedDate);
+                var lastDonated = donateds.FirstOrDefault();
+                var accepteds = Model.AcceptorDetails1.OrderByDescending(d => d.BleedDate);
+                var lastAccepted = accepteds.FirstOrDefault();
+            }
+            @Html.ActionLink("Donated Blood", "Create", new {donarId = Model.DonarId, controller = "AcceptorDetails"}) |
+            @Html.ActionLink("Accept Blood", "Create", new {acceptorId = Model.DonarId, controller = "AcceptorDetails"})
+            <br /><br />
+            @if (lastDonated != null)
+            {
+                <br/><b>Last Blood Donated: </b> @Generics.Functions.RelativeDate(lastDonated.BleedDate)
+            }
+            @if (lastAccepted != null)
+            {
+                <br/><b>Last Blood Accepted: </b> @Generics.Functions.RelativeDate(lastAccepted.BleedDate)
+            }
+            <h4><b>Blood Donated Details</b></h4>
+            @Html.Partial("~/Views/AcceptorDetails/AcceptedBy.cshtml",donateds)
+
+            <h4><b>Blood Accepted Details</b></h4>
+            @Html.Partial("~/Views/AcceptorDetails/DonatedBy.cshtml", accepteds)
+
         </div>
     </div>
 </div>

@@ -47,6 +47,7 @@
     <Compile Include="Constants\MimeTypes.cs" />
     <Compile Include="Constants\Notifications.cs" />
     <Compile Include="Constants\Slack.cs" />
+    <Compile Include="Functions.cs" />
     <Compile Include="Helpers\NotifyHelper.cs" />
     <Compile Include="Helpers\SlackHelper.cs" />
     <Compile Include="Models\ErrorOccurModel.cs" />

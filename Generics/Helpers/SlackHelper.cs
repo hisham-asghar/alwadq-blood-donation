@@ -5,10 +5,9 @@ namespace Generics.Helpers
 {
     public class SlackHelper
     {
-        public const string Notifier = "https://hooks.slack.com/services/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";
         public static void NotifySlack(string message)
         {
-            PushToSlackUsingWebhook(Notifier, message);
+            PushToSlackUsingWebhook(Constants.Slack.Webhooks.Notifier, message);
         }
 
         protected static void PushToSlackUsingWebhook(string webhook, string message)

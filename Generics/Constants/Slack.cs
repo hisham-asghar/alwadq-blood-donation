@@ -15,7 +15,7 @@ namespace Generics.Constants
         }
         public class Webhooks
         {
-            public const string TmgNotifier = "https://hooks.slack.com/services/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";
+            public const string Notifier = "https://hooks.slack.com/services/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";
         }
     }
 }
